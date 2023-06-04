@@ -15,8 +15,12 @@ all : $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-clean : $(RM)$(OBJ)
-
+clean : 
+		$(RM)$(OBJ)
 
 fclean : clean
-	$(RM) fractol
+		$(RM) $(NAME)
+
+re : fclean all
+
+.PHONY : all fclean clean re

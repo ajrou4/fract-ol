@@ -1,108 +1,123 @@
-#include "fractol.h"
+
+#include <stdio.h>
 #include <mlx.h>
-
-// int	ptr(int button,int x, int y)
-// {
-// 	button = 1;
-// 	// t_mlx lx;
-// 	mlx_pixel_put(lx.win ,lx.mlx , x, y, 0xFFFFFF);
-// 	return (0);
-// }
-
-typedef struct f_mlx
+#include <math.h>
+typedef struct s_mlx
 {
-	void	*mlx;
-	void	*init_ptr;
-	void	*window_ptr;
-	char	*img_ptr;
-	char	*addr_ptr;
-	int		bit_per_pixel;
-	int		line_lenght;
-	int		endian;
-	void	*image;
+	void *init;
+	void *window;
+	void *img;
+	char *addr;
+	int bit_per_pixel;
+	int line_lenght;
+	int endian;
+} t_mlx;
 
-}t_mlx;
-int	drawing(void *mlx, int w, int h, int color)
+/*int fucntion_handle(int key, void *param){
+printf("%d\n", key);
+return (0);
+}
+int handle(int button, int x, int y, t_mlx *mlx)
 {
-	char	*addr;
-	char	*addr_ptr;
-	int		bit_per_pixel;
-	int		line_lenght;
-	char	*img_ptr;
+mlx_pixel_put(mlx->init, mlx->window, x, y, mlx->color);
+return (0);
+}*/
+int draw_fractal(t_mlx *mlx, int width, int height, int color)
+{
+	char *addr;
 
-	addr = addr_ptr + (h * line_lenght + w * (bit_per_pixel / 8));
+	addr = mlx->addr + (height * mlx->line_lenght + width * (mlx->bit_per_pixel / 8));
 	*(unsigned int *)addr = color;
 	return (0);
 }
 
-
-
-void mandelbrot(double z_re, double z_im)
+void    mandelbrot_set(t_mlx *mlx)
 {
-	t_mlx *mlx;
-	double c_re;
-	double c_im;
-	// void	*init_ptr;
-	// void	*window_ptr;
-	// char	*img_ptr;
+	int max_iteration = 50;
+	double z_re = 0;
+	double z_img = 0;
+	double c_re = 0;
+	double c_img = 0;
+	int i = 0;
+	int y = 0, x = 0;
+	double sqrt_modulus ;
+	double scale_factor;
+	double height = 1000;
+	double width = 1000;
+	int color;
 
-	int iter = 0;
-	int max_iter = 50;
-	double x = 0;
-	double y = 0;
-	double check_modulo;
-
-	while (x < 800)
+	while (x < width)
 	{
 		y = 0;
-		while (y < 800)
+		while (y < height)
 		{
+
 			z_re = 0;
-			z_im = 0;
-
-			check_modulo = z_re * z_re + z_im * z_im;
-			while (iter <= max_iter && check_modulo < 4)
+			z_img = 0;
+			scale_factor = 4.0/ width;
+			c_re = (x - width / 2.0) * scale_factor;
+			c_img  = (y - height / 2.0) * scale_factor;
+			i = 0;
+			//modulo = sqrt(pow(z_re, 2) + pow(z_img, 2));
+			sqrt_modulus = z_re * z_re + z_img * z_img;
+			while ( sqrt_modulus < 4 &&  i < max_iteration)
 			{
-				double factor = 4.0 / 800;
-				c_re = (x - 800/ 2.0) * factor;
-				c_im = (y - 800 / 2.0) * factor;
-				double tmp = z_re;
-				z_re = z_re * z_re + c_re;
-				z_im = 2 * tmp * z_im - z_im * z_im + c_im;
-				check_modulo = z_re * z_re + z_im * z_im;
-				iter++;
-				if (iter < 11)
-					drawing(mlx, x, y, 0xf48c06);
-				else if (iter < 25)
-					drawing(mlx, x, y, 0x000000);
-				else
-					drawing(mlx, x, y, 0xffffff);
-
-				y++;
-
+				double tmp ;
+				tmp = z_re;
+					/*
+					* We store zr in a temporary variable to avoid using the
+					* new value of zr in the z_img calculation
+					*/
+				z_re = z_re * z_re - z_img * z_img + c_re;
+				z_img= 2 * z_img * tmp + c_img;
+				//modulo  = sqrt(pow(z_re, 2) + pow(z_img, 2));
+				sqrt_modulus = z_re * z_re + z_img * z_img;
+				i++;
 			}
+			int color = i % 16 * 0x000000+ i % 16 * 0xFFFFFF;
+			int color2 = i % 16 * 0xF90000 + i % 16 * 0xF2D027;
+			int color3 = i % 16 * 0x0F1011 + i % 16 * 0xE9E9E9+ i % 16 * 0x2D3030 ;
+			if (i < 17)
+			draw_fractal(mlx, x ,  y, color);
+			else if (i < 50)
+			draw_fractal(mlx,  x , y, color2);
+			else
+			draw_fractal(mlx, x , y, 0x000000);
 
-		x++;
+			y++;
+		}
+			x++;
 	}
-}
-	mlx_put_image_to_window(mlx->init_ptr, mlx->window_ptr,  mlx->img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx->init, mlx->window, mlx->img, 0, 0);
+	mlx_loop(mlx->init);
 }
 
-int	main(void)
+int main()
 {
-		t_mlx	mlx;
-	// void	*mlx;
-	// void	*init_ptr;
-	// void	*window_ptr;
-	// char	*img_ptr;
-	// char	*addr_ptr;
-	// int		bit_per_pixel;
-	// int		line_lenght;
-	// int		endian;
-	// void	*image;
+	t_mlx mlx;
 
-	mlx.init_ptr = mlx_init();
-	mlx.mlx = mlx_new_window(mlx.init_ptr, 800, 800, "jamaica");
-	mlx.init_ptr = mlx_new_image(mlx.init_ptr, 800, 800);
-	mlx_loop(mlx.mlx);
+
+	mlx.init = mlx_init();
+
+	mlx.window = mlx_new_window(mlx.init, 1000, 1000, "ajrou");
+
+	mlx.img = mlx_new_image(mlx.init, 1000, 1000);
+
+	mlx.addr = mlx_get_data_addr(mlx.img, &mlx.bit_per_pixel, &mlx.line_lenght, &mlx.endian);
+
+	// draw_fractal(&mlx, 1000, 1000, 0x0000FF);
+
+	//mlx_put_image_to_window(mlx.init, mlx.window, mlx.img, 0, 0);
+
+	// mlx_pixel_put(init, window, 250, 250, 0x10FF0000);
+
+	// mlx_string_put(init, window, 100, 100, 0xFFFFFFFF, "tass");
+
+	// mlx_key_hook(window, fucntion_handle, &mlx);
+
+	// mlx_mouse_hook(mlx.window, handle, &mlx);
+
+	mandelbrot_set(&mlx);
+
+	mlx_loop(mlx.init);
 }

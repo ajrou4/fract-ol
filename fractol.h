@@ -5,12 +5,33 @@
 #include <stdlib.h>
 #include <stdio.h>
 # include <mlx.h>
+# include <limits.h>
 
-// typedef struct f_mlx
-// {
-// 	void	*mlx;
-// 	void	*win;
+#define WIDTH 1000
+#define HEIGHT 1000
 
-// }t_mlx;
+typedef struct s_mlx
+{
+	void	*mlx;
+	void *init;
+	void *win;
+	void *img;
+	char *addr;
+	int bit_per_pixel;
+	int line_lenght;
+	int endian;
+	double z_re ;
+	double z_img ;
+	double c_re ;
+	double c_img;
+	double tmp;
+	int		x;
+	int		y;
+	int		i;
+	int max_iteration;
+	double sqrt_modulus;
+	double scale_factor;
+	int color;
+} t_mlx;
 
 #endif
