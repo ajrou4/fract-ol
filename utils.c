@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: majrou <majrou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: majrou <majrou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:38:49 by majrou            #+#    #+#             */
-/*   Updated: 2023/06/03 04:11:55 by majrou           ###   ########.fr       */
+/*   Updated: 2023/06/08 10:21:33 by majrou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    error(int a)
 		write(2, "if you want julia write : ././fractol  num_r num_i\n", 52);
 		write(2, "num_r : real part {1 1,5 2 ...}\n", 21);
 		write(2, "num_i :imaginary part{5i 5.1i 6 ...}\n", 18);
-        exit;
+        exit();
     }
 }
 

@@ -2,16 +2,17 @@
 #include <stdio.h>
 #include <mlx.h>
 #include <math.h>
-typedef struct s_mlx
-{
-	void *init;
-	void *window;
-	void *img;
-	char *addr;
-	int bit_per_pixel;
-	int line_lenght;
-	int endian;
-} t_mlx;
+#include "fractol.h"
+// typedef struct s_mlx
+// {
+// 	void *init;
+// 	void *window;
+// 	void *img;
+// 	char *addr;
+// 	int bit_per_pixel;
+// 	int line_lenght;
+// 	int endian;
+// } t_mlx;
 
 /*int fucntion_handle(int key, void *param){
 printf("%d\n", key);
@@ -31,6 +32,20 @@ int draw_fractal(t_mlx *mlx, int width, int height, int color)
 	return (0);
 }
 
+void	cloer_fractal(t_mlx *mlx ,int i)
+{
+	mlx->i = i;
+	mlx->color = mlx->i % 16 * 0x000000+ mlx->i % 16 * 0xFFFFFF;
+	mlx->color2 = mlx->i % 16 * 0xF90000 + mlx->i % 16 * 0xF2D027;
+	mlx->color3 = mlx->i % 16 * 0x0F1011 + mlx->i % 16 * 0xE9E9E9+ mlx->i % 16 * 0x2D3030 ;
+	if (mlx->i < 17)
+		draw_fractal(mlx, mlx->x , mlx->y, mlx->color);
+	else if (mlx->i < 50)
+		draw_fractal(mlx,  mlx->x , mlx->y, mlx->color2);
+	else
+		draw_fractal(mlx, mlx->x , mlx->y, 0x000000);
+}
+
 void    mandelbrot_set(t_mlx *mlx)
 {
 	int max_iteration = 50;
@@ -38,13 +53,13 @@ void    mandelbrot_set(t_mlx *mlx)
 	double z_img = 0;
 	double c_re = 0;
 	double c_img = 0;
-	int i = 0;
+	// int i = 0;
 	int y = 0, x = 0;
 	double sqrt_modulus ;
 	double scale_factor;
 	double height = 1000;
 	double width = 1000;
-	int color;
+	// int color;
 
 	while (x < width)
 	{
@@ -57,10 +72,10 @@ void    mandelbrot_set(t_mlx *mlx)
 			scale_factor = 4.0/ width;
 			c_re = (x - width / 2.0) * scale_factor;
 			c_img  = (y - height / 2.0) * scale_factor;
-			i = 0;
+			mlx->i = 0;
 			//modulo = sqrt(pow(z_re, 2) + pow(z_img, 2));
 			sqrt_modulus = z_re * z_re + z_img * z_img;
-			while ( sqrt_modulus < 4 &&  i < max_iteration)
+			while ( sqrt_modulus < 4 &&  mlx->i < max_iteration)
 			{
 				double tmp ;
 				tmp = z_re;
@@ -72,23 +87,24 @@ void    mandelbrot_set(t_mlx *mlx)
 				z_img= 2 * z_img * tmp + c_img;
 				//modulo  = sqrt(pow(z_re, 2) + pow(z_img, 2));
 				sqrt_modulus = z_re * z_re + z_img * z_img;
-				i++;
+				mlx->i++;
 			}
-			int color = i % 16 * 0x000000+ i % 16 * 0xFFFFFF;
-			int color2 = i % 16 * 0xF90000 + i % 16 * 0xF2D027;
-			int color3 = i % 16 * 0x0F1011 + i % 16 * 0xE9E9E9+ i % 16 * 0x2D3030 ;
-			if (i < 17)
-			draw_fractal(mlx, x ,  y, color);
-			else if (i < 50)
-			draw_fractal(mlx,  x , y, color2);
-			else
-			draw_fractal(mlx, x , y, 0x000000);
+			cloer_fractal(mlx, mlx->i);
+			// int color = i % 16 * 0x000000+ i % 16 * 0xFFFFFF;
+			// int color2 = i % 16 * 0xF90000 + i % 16 * 0xF2D027;
+			// int color3 = i % 16 * 0x0F1011 + i % 16 * 0xE9E9E9+ i % 16 * 0x2D3030 ;
+			// if (i < 17)
+			// draw_fractal(mlx, x ,  y, color);
+			// else if (i < 50)
+			// draw_fractal(mlx,  x , y, color2);
+			// else
+			// draw_fractal(mlx, x , y, 0x000000);
 
 			y++;
 		}
 			x++;
 	}
-	mlx_put_image_to_window(mlx->init, mlx->window, mlx->img, 0, 0);
+	mlx_put_image_to_window(mlx->init, mlx->win, mlx->img, 0, 0);
 	mlx_loop(mlx->init);
 }
 
@@ -99,7 +115,7 @@ int main()
 
 	mlx.init = mlx_init();
 
-	mlx.window = mlx_new_window(mlx.init, 1000, 1000, "ajrou");
+	mlx.win = mlx_new_window(mlx.init, 1000, 1000, "ajrou");
 
 	mlx.img = mlx_new_image(mlx.init, 1000, 1000);
 
@@ -111,7 +127,7 @@ int main()
 
 	// mlx_pixel_put(init, window, 250, 250, 0x10FF0000);
 
-	// mlx_string_put(init, window, 100, 100, 0xFFFFFFFF, "tass");
+	// mlx_string_put(init, window, 100, 100, 0xFFFFFFFF, "yesno");
 
 	// mlx_key_hook(window, fucntion_handle, &mlx);
 

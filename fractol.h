@@ -18,7 +18,7 @@ typedef struct s_mlx
 	void *img;
 	char *addr;
 	int bit_per_pixel;
-	int line_lenght;
+	int line_length;
 	int endian;
 	double z_re ;
 	double z_img ;
@@ -32,6 +32,8 @@ typedef struct s_mlx
 	double sqrt_modulus;
 	double scale_factor;
 	int color;
+	int color2;
+	int color3;
 } t_mlx;
 
 #endif

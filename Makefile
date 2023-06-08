@@ -1,25 +1,25 @@
 NAME = fractol
-SRC = fractol.c test.c
+ SRC =  test2.c
 OBJ = $(SRC:.c=.o)
 HEADER = fractol.h
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
-
 
 all : $(NAME)
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-
+		@$(CC) $(OBJ) -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@echo "Compiling up..."
 clean : 
-		$(RM)$(OBJ)
+		@rm -rf $(OBJ)
+		@echo "Cleaning up..."
 
 fclean : clean
-		$(RM) $(NAME)
+		@rm -rf  $(NAME)
+		@echo "Cleaning up..."
 
 re : fclean all
 

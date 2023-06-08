@@ -8,6 +8,7 @@
         "__tuple": "c",
         "bitset": "c",
         "ios": "c",
-        "locale": "c"
+        "locale": "c",
+        "stdlib.h": "c"
     }
 }
