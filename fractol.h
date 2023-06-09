@@ -1,10 +1,10 @@
 #ifndef FRACTOL_H
-#define FRACTOL_H
+# define FRACTOL_H
 
 # include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-# include <mlx.h>
+# include "mlx/mlx.h"
 # include <limits.h>
 
 #define WIDTH 1000
