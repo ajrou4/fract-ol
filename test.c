@@ -27,24 +27,24 @@ int draw_fractal(t_mlx *mlx, int width, int height, int color)
 {
 	char *addr;
 
-	addr = mlx->addr + (height * mlx->line_lenght + width * (mlx->bit_per_pixel / 8));
+	addr = mlx->addr + (height * mlx->line_length + width * (mlx->bit_per_pixel / 8));
 	*(unsigned int *)addr = color;
 	return (0);
 }
 
-void	cloer_fractal(t_mlx *mlx ,int i)
-{
-	mlx->i = i;
-	mlx->color = mlx->i % 16 * 0x000000+ mlx->i % 16 * 0xFFFFFF;
-	mlx->color2 = mlx->i % 16 * 0xF90000 + mlx->i % 16 * 0xF2D027;
-	mlx->color3 = mlx->i % 16 * 0x0F1011 + mlx->i % 16 * 0xE9E9E9+ mlx->i % 16 * 0x2D3030 ;
-	if (mlx->i < 17)
-		draw_fractal(mlx, mlx->x , mlx->y, mlx->color);
-	else if (mlx->i < 50)
-		draw_fractal(mlx,  mlx->x , mlx->y, mlx->color2);
-	else
-		draw_fractal(mlx, mlx->x , mlx->y, 0x000000);
-}
+// void	cloer_fractal(t_mlx *mlx ,int i)
+// {
+// 	mlx->i = i;
+// 	mlx->color = mlx->i % 16 * 0x000000+ mlx->i % 16 * 0xFFFFFF;
+// 	mlx->color2 = mlx->i % 16 * 0xF90000 + mlx->i % 16 * 0xF2D027;
+// 	mlx->color3 = mlx->i % 16 * 0x0F1011 + mlx->i % 16 * 0xE9E9E9+ mlx->i % 16 * 0x2D3030 ;
+// 	if (mlx->i < 17)
+// 		draw_fractal(mlx, mlx->x , mlx->y, mlx->color);
+// 	else if (mlx->i < 50)
+// 		draw_fractal(mlx,  mlx->x , mlx->y, mlx->color2);
+// 	else
+// 		draw_fractal(mlx, mlx->x , mlx->y, 0x000000);
+// }
 
 void    mandelbrot_set(t_mlx *mlx)
 {
@@ -53,13 +53,13 @@ void    mandelbrot_set(t_mlx *mlx)
 	double z_img = 0;
 	double c_re = 0;
 	double c_img = 0;
-	// int i = 0;
+	int i = 0;
 	int y = 0, x = 0;
 	double sqrt_modulus ;
 	double scale_factor;
 	double height = 1000;
 	double width = 1000;
-	// int color;
+	int color;
 
 	while (x < width)
 	{
@@ -89,16 +89,16 @@ void    mandelbrot_set(t_mlx *mlx)
 				sqrt_modulus = z_re * z_re + z_img * z_img;
 				mlx->i++;
 			}
-			cloer_fractal(mlx, mlx->i);
-			// int color = i % 16 * 0x000000+ i % 16 * 0xFFFFFF;
-			// int color2 = i % 16 * 0xF90000 + i % 16 * 0xF2D027;
+			// cloer_fractal(mlx, mlx->i);
+			color = i % 16 * 0x000000+ i % 16 * 0xFFFFFF;
+			int color2 = i % 16 * 0xF90000 + i % 16 * 0xF2D027;
 			// int color3 = i % 16 * 0x0F1011 + i % 16 * 0xE9E9E9+ i % 16 * 0x2D3030 ;
-			// if (i < 17)
-			// draw_fractal(mlx, x ,  y, color);
-			// else if (i < 50)
-			// draw_fractal(mlx,  x , y, color2);
-			// else
-			// draw_fractal(mlx, x , y, 0x000000);
+			if (i < 17)
+			draw_fractal(mlx, x ,  y, color);
+			else if (i < 50)
+			draw_fractal(mlx,  x , y, color2);
+			else
+			draw_fractal(mlx, x , y, 0x000000);
 
 			y++;
 		}
@@ -119,7 +119,7 @@ int main()
 
 	mlx.img = mlx_new_image(mlx.init, 1000, 1000);
 
-	mlx.addr = mlx_get_data_addr(mlx.img, &mlx.bit_per_pixel, &mlx.line_lenght, &mlx.endian);
+	mlx.addr = mlx_get_data_addr(mlx.img, &mlx.bit_per_pixel, &mlx.line_length, &mlx.endian);
 
 	// draw_fractal(&mlx, 1000, 1000, 0x0000FF);
 

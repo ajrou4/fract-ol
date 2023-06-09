@@ -1,5 +1,5 @@
 NAME = fractol
- SRC =  test2.c
+ SRC =  test.c
 OBJ = $(SRC:.c=.o)
 HEADER = fractol.h
 CC = gcc
