@@ -6,11 +6,12 @@
 /*   By: majrou <majrou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 22:44:09 by majrou            #+#    #+#             */
-/*   Updated: 2023/06/09 22:44:10 by majrou           ###   ########.fr       */
+/*   Updated: 2023/06/10 05:58:04 by majrou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
 
 void	mandlbrot(t_mlx *mlx)
 {
