@@ -1,5 +1,5 @@
 NAME = fractol
- SRC =   julia.c 
+SRC =   julia.c mandelbrot.c  fractol.c utils.c  main_m_j.c       
 OBJ = $(SRC:.c=.o)
 HEADER = fractol.h
 CC = gcc
@@ -11,7 +11,7 @@ all : $(NAME)
 	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 $(NAME): $(OBJ)
-		@$(CC) $(OBJ) -o $(NAME) -Lmlx -lmlx -framework OpenGL -framework AppKit
+		@$(CC) $(OBJ) -o $(NAME) -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
 	@echo "Compiling up..."
 clean : 
 		@rm -rf $(OBJ)
