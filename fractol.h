@@ -6,7 +6,7 @@
 /*   By: majrou <majrou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 03:17:41 by majrou            #+#    #+#             */
-/*   Updated: 2023/06/13 01:22:31 by majrou           ###   ########.fr       */
+/*   Updated: 2023/06/16 12:54:02 by majrou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ typedef struct s_mlx
 
 long	ft_latoi(char *str);
 void	error(int a);
-int		mand_main(void);
+int		mand_main(t_mlx	*mlx);
 int		julia_main(t_mlx *mlx);
-void	error(int a);
 int		ft_isdigit(int c);
 double	ft_atof(char *str, double res);
 int		key_hook_j(int keycode, t_mlx *mlx);

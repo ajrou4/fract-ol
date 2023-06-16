@@ -6,7 +6,7 @@
 /*   By: majrou <majrou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:38:49 by majrou            #+#    #+#             */
-/*   Updated: 2023/06/13 04:37:55 by majrou           ###   ########.fr       */
+/*   Updated: 2023/06/16 13:26:53 by majrou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	error(int a)
 		write(2, "you have problem\n", 18);
 		write(2, "if you want mandelbrot\n", 24);
 		write(2, "write like this : ./fractol  1\n", 32);
-		write(2, "if you want julia write : ./fractol 2 OR 2 num_r num_i\n",
-			56);
+		write(2, "if you want julia write : ./fractol 2 num_r num_i\n", 56);
 		write(2, "num_r : real part {1 1,5 2 ...}\n", 33);
 		write(2, "num_i :imaginary part{-2 .. 0.1 0.6 ... 2}\n", 44);
 		exit(0);
