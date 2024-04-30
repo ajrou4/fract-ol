@@ -1,4 +1,4 @@
-#Welcome to the Fractal Exploration Project! 🌀
+Welcome to the Fractal Exploration Project! 🌀
 Introduction
 
 This project delves into the fascinating world of fractals, a class of complex geometric shapes that exhibit self-similarity at various scales. Fractals are not only visually mesmerizing but also possess intriguing mathematical properties, including fractional dimensions.
